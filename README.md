@@ -1,1 +1,1 @@
-Cool story
+Cool story !
