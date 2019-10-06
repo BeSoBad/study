@@ -4,69 +4,6 @@
 #include <cmath>
 using namespace std;
 
-class Matrix {
-public:
-	vector <vector <double>> x;
-	int n, m;
-	vector <double>& operator[](int i) {
-		return x[i];
-	} 
-	Matrix(int nn, int mm) {
-		vector <vector <double>> tmp(nn, vector <double> (mm));
-		x = tmp;
-		n = nn;
-		m = mm;
-	}
-	void show() {
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++)
-				cout << x[i][j] << "\t";
-			cout << "\n";
-		}
-		cout << endl;
-	}
-	int size() {
-		return n;
-	}		
-	void transpose() {
-		int t;
-		Matrix tmp(n, n);
-		for(int i = 0; i < n; i++) {
-			for(int j = 0; j < n; j++) {
-				tmp[i][j] = x[j][i];
-			}
-		}
-		x = tmp.x;
-	}
-};
-
-class Vector {
-public:
-	vector <double> x;
-	int n;
-	double& operator[](int i) {
-		return x[i];
-	}
-	Vector(int nn) {
-		vector <double> tmp(nn);
-		x = tmp;
-		n = nn;
-	}
-	void show() {
-		for (int i = 0; i < n; i++) {
-			cout << x[i] << "\t";
-		}
-		cout << endl;
-	}
-	int size() {
-		return n;
-	}
-	void push(double t) {
-		x.push_back(t);
-		n++;
-	}
-};
-
 Matrix operator*(Matrix& A, Matrix& B) {
 	int n = A.size();
 	Matrix C(n, n);
@@ -75,60 +12,6 @@ Matrix operator*(Matrix& A, Matrix& B) {
 			for(int k = 0; k < n; k++)
 				C[i][j] += A[i][k] * B[k][j];
 	return C;
-}
-
-Matrix readMatrix(string &&path) {
-	ifstream in(path);
-
-	if (in.is_open()) {
-		int count = 0;
-		int temp;
-		vector <int> temp_v;
-		while (!in.eof()) {
-				in >> temp;
-				temp_v.push_back(temp);
-				count++;
-		}
-		int n = sqrt(count);
-		Matrix x(n, n);
-		int cnt = 0;
-		for (int i = 0; i < n; i++) { 
-			for (int j = 0; j < n; j++) {
-				if (cnt >= count) {
-					break;
-				}
-				in >> temp;
-				x[i][j] = temp_v[cnt];
-				cnt++;
-			}
-			if (cnt >= count) {
-				break;
-			}
-		}
-		return x;
-	}
-	else {
-		cout << "Файл не найден.";
-	}
-}
-
-Vector readVector(string &&path) {
-	ifstream in(path);
-
-	if (in.is_open()) {
-		int count = 0;
-		double temp;
-		Vector x(0);
-		while (!in.eof()) {
-				in >> temp;
-				x.push(temp);
-		}
-		x.n--;
-		return x;
-	}
-	else {
-		cout << "Файл не найден.";
-	}
 }
 
 void LU(Matrix A, Matrix &L, Matrix &U, int n) {

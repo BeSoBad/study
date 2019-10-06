@@ -10,7 +10,7 @@ public:
 	int n, m;
 	vector <double>& operator[](int i) {
 		return x[i];
-	} 
+	}
 	Matrix(int nn, int mm) {
 		vector <vector <double>> tmp(nn, vector <double> (mm));
 		x = tmp;
@@ -27,7 +27,7 @@ public:
 	}
 	int size() {
 		return n;
-	}		
+	}
 	void transpose() {
 		int t;
 		Matrix tmp(n, n);
@@ -214,7 +214,7 @@ Matrix readMatrix(string &&path) {
 		int n = sqrt(count);
 		Matrix x(n, n);
 		int cnt = 0;
-		for (int i = 0; i < n; i++) { 
+		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (cnt >= count) {
 					break;
@@ -258,7 +258,7 @@ void toEquivalentForm(Matrix& A, Vector& b, Matrix& Alpha, Vector& beta) {
 	for (int i = 0; i < n; i++) {
 		beta[i] = b[i]/(A[i][i] + 1e-3);
 		for (int j = 0; j < n; j++)
-			if (i != j) 
+			if (i != j)
 				Alpha[i][j]  = -A[i][j]/(A[i][i] + 1e-3);
 	}
 }
