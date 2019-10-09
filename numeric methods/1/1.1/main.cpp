@@ -2,17 +2,11 @@
 #include <vector>
 #include <fstream>
 #include <cmath>
-using namespace std;
+#include "vector.h"
+#include "matrix.h"
+#include "operations.h"
 
-Matrix operator*(Matrix& A, Matrix& B) {
-	int n = A.size();
-	Matrix C(n, n);
-	for(int i = 0; i < n; i++)
-		for(int j = 0; j < n; j++)
-			for(int k = 0; k < n; k++)
-				C[i][j] += A[i][k] * B[k][j];
-	return C;
-}
+using namespace std;
 
 void LU(Matrix A, Matrix &L, Matrix &U, int n) {
 	U=A;
@@ -77,7 +71,8 @@ Matrix inverse(Matrix& L, Matrix& U) {
 }
 
 int main() {
-	Matrix A = readMatrix("matrix.txt");
+	Matrix A;
+	A.readMatrix("matrix.txt");
 	A.show();
 	int n = A.size();
 	Matrix L(n, n);
@@ -87,7 +82,8 @@ int main() {
 	U.show();
 	Matrix AA = L*U;
 	AA.show();
-	Vector b = readVector("vector.txt");
+	Vector b;
+	b.readVector("vector.txt");
 	b.show();
 	Vector x = solve(L, U, b);
 	x.show();

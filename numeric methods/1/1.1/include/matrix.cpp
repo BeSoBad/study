@@ -1,21 +1,21 @@
 #include <iostream>
 #include "matrix.h"
 Matrix::Matrix(int nn, int mm) {
-    vector <vector <double>> tmp(nn, vector <double> (mm));
+    std::vector <std::vector <double>> tmp(nn, std::vector <double> (mm));
     x = tmp;
     n = nn;
     m = mm;
 }
-vector <double>& Matrix::operator[](int i) {
+std::vector <double>& Matrix::operator[](int i) {
     return x[i];
 }
 void Matrix::show() {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < m; j++)
-            cout << x[i][j] << "\t";
-        cout << "\n";
+            std::cout << x[i][j] << "\t";
+        std::cout << "\n";
     }
-    cout << endl;
+    std::cout << std::endl;
 }
 int Matrix::size() {
     return n;
@@ -43,19 +43,20 @@ double Matrix::norm() {
     return max;
 }
 
-void Matrix::readMatrix(string &&path) {
-	ifstream in(path);
-
+void Matrix::readMatrix(std::string &&path) {
+	std::ifstream in(path);
+    std::cout << path << std::endl;
+    in.seekg(0);
 	if (in.is_open()) {
 		int count = 0;
-		int temp;
-		vector <int> temp_v;
+		double temp;
+		std::vector <double> temp_v;
 		while (!in.eof()) {
 				in >> temp;
 				temp_v.push_back(temp);
 				count++;
 		}
-		int n = sqrt(count);
+		int n = std::sqrt(count);
 		Matrix tmp(n, n);
 		int cnt = 0;
 		for (int i = 0; i < n; i++) {
@@ -63,7 +64,6 @@ void Matrix::readMatrix(string &&path) {
 				if (cnt >= count) {
 					break;
 				}
-				in >> temp;
 				tmp[i][j] = temp_v[cnt];
 				cnt++;
 			}
@@ -71,9 +71,9 @@ void Matrix::readMatrix(string &&path) {
 				break;
 			}
 		}
-		x = tmp;
+		x = tmp.x;
 	}
 	else {
-		cout << "Файл не найден.";
+		std::cout << "Файл не найден.";
 	}
 }

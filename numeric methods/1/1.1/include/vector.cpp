@@ -1,16 +1,18 @@
+#include "vector.h"
+
 double& Vector::operator[](int i) {
 	return x[i];
 }
 Vector::Vector(int nn) {
-	vector <double> tmp(nn);
+	std::vector <double> tmp(nn);
 	x = tmp;
 	n = nn;
 }
 void Vector::show() {
 	for (int i = 0; i < n; i++) {
-		cout << x[i] << "\t";
+		std::cout << x[i] << "\t";
 	}
-	cout << endl;
+	std::cout << std::endl;
 }
 int Vector::size() {
 	return n;
@@ -31,8 +33,8 @@ double Vector::norm() {
   return max;
 }
 
-void Vector::readVector(string &&path) {
-	ifstream in(path);
+void Vector::readVector(std::string &&path) {
+	std::ifstream in(path);
 
 	if (in.is_open()) {
 		int count = 0;
@@ -43,9 +45,9 @@ void Vector::readVector(string &&path) {
 				tmp.push(temp);
 		}
 		tmp.n--;
-		x = tmp;
+		x = tmp.x;
 	}
 	else {
-		cout << "Файл не найден.";
+		std::cout << "Файл не найден.";
 	}
 }

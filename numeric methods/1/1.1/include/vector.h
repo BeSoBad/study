@@ -2,18 +2,22 @@
 #define VECTOR
 
 #include <iostream>
-#include "vector.h"
+#include <vector>
+#include <string>
+#include <fstream>
+
 class Vector {
 public:
-	vector <double> x;
+	std::vector <double> x;
 	int n;
 	double& operator[](int i);
+	Vector(){}
 	Vector(int nn);
 	void show();
 	int size();
 	void push(double t);
   double norm();
-  void readVector(string &&path);
+  void readVector(std::string &&path);
 };
 
 #endif

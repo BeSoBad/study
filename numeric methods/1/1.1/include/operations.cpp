@@ -1,5 +1,4 @@
-#include "vector.h"
-#include "matrix.h"
+#include "operations.h"
 
 Vector operator*(Matrix& A, Vector& B) {
 	int n = A.size();
