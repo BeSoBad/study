@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/bsb/github/study/numeric methods/1/1.2/include/vector.cpp
+vector.h
+/home/bsb/github/study/numeric methods/1/1.2/include/vector.h
+
+/home/bsb/github/study/numeric methods/1/1.2/include/vector.h
+iostream
+-
+vector
+-
+string
+-
+fstream
+-
+

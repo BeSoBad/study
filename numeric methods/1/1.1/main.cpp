@@ -72,7 +72,8 @@ Matrix inverse(Matrix& L, Matrix& U) {
 
 int main() {
 	Matrix A;
-	A.readMatrix("matrix.txt");
+	std::string path = "matrix.txt";
+	A.readMatrix(path);
 	A.show();
 	int n = A.size();
 	Matrix L(n, n);
