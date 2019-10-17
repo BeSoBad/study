@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/artem/github/study/numeric methods/1/1.5/main.cpp" "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles/main.dir/main.cpp.o"
+  "/home/bsb/github/study/numeric methods/1/1.5/main.cpp" "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles/main.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -15,9 +15,9 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles/matrix.dir/DependInfo.cmake"
-  "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles/vector.dir/DependInfo.cmake"
-  "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles/operations.dir/DependInfo.cmake"
+  "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles/matrix.dir/DependInfo.cmake"
+  "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles/vector.dir/DependInfo.cmake"
+  "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles/operations.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

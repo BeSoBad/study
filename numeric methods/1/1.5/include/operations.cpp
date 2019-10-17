@@ -19,6 +19,28 @@ Matrix operator*(Matrix& A, Matrix& B) {
 	return C;
 }
 
+Matrix operator*(Matrix& A, double d) {
+	int n = A.size();
+	Matrix C(n, n);
+	for(int i = 0; i < n; i++)
+		for(int j = 0; j < n; j++)
+			C[i][j] *= d;
+	return C;
+}
+
+Matrix operator*(double d, Matrix& A) {
+	return A*d;
+}
+
+Matrix operator*(Vector& A, Vector& B) {
+	int n = A.size();
+	Matrix C(n, n);
+	for(int i = 0; i < n; i++)
+		for(int j = 0; j < n; j++)
+			C[i][j] = A[i]* B[j];
+	return C;
+}
+
 Vector operator+(Vector& A, Vector& B) {
 	int n = A.size();
 	Vector C(n);

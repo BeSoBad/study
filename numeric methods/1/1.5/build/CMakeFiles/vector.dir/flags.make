@@ -6,5 +6,5 @@ CXX_FLAGS =  -std=c++14 -g -O0 -O2 -g -DNDEBUG
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/home/artem/github/study/numeric methods/1/1.5/include" 
+CXX_INCLUDES = -I"/home/bsb/github/study/numeric methods/1/1.5/include" 
 

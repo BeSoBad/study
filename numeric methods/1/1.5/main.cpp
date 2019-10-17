@@ -2,10 +2,11 @@
 #include <vector>
 #include <fstream>
 #include <cmath>
+#include <utility>
+#include <tuple>
 #include "matrix.h"
 #include "vector.h"
 #include "operations.h"
-
 
 using namespace std;
 
@@ -18,96 +19,104 @@ int sign(double a) {
 		return -1;
 }
 
+double get_mult_num(Vector& a, Vector& b) {
+    double res = 0;
+    for (int i = 0; i < a.size(); i++) {
+        res += a[i]*b[i];
+    }
+    return res;
+}
 
-def householder(a, sz, k):
-    v = np.zeros(sz)
-    a = np.array(a.get_data())
-    v[k] = a[k] + sign(a[k]) * norm(a[k:])
-    for i in range(k + 1, sz):
-        v[i] = a[i]
-    v = v[:, np.newaxis]
-    H = np.eye(sz) - (2 / (v.T @ v)) * (v @ v.T)
-    return Matrix.from_list(H.tolist())
+Matrix householder(Vector& col, int size, int i) {
+    Vector v(size);
+    Vector tmp(size);
+    for (int j = i; j < size; j++)
+        tmp[j] = col[j];
+    v[i] = col[i] + sign(col[i])*tmp.norm();
+    Matrix H(size, size), E(size, size), tmp_m = v*v;
+    Matrix tmp_m2 = tmp_m*(2*(1/get_mult_num(v, v)));
+    H = E - tmp_m;
+    return H;
+}
+
+Vector get_column(Matrix &A, int i) {
+    Vector col(0);
+    for (int j = 0; j < A.size(); i++) {
+        col.push(A[j][i]);
+    }
+    return col;
+}
+
+int get_QR(Matrix &A, Matrix& Q1, Matrix& R) {
+    int size = A.size();
+    Matrix Q(size, size);
+    Matrix A_i = A;
+    for (int i = 0; i < size - 1; i++) {
+        Vector col = get_column(A, i);
+        Matrix H = householder(col, size, i);
+        Matrix tmp1 = Q*H, tmp2 = A_i*H;
+        Q = tmp1;
+        A_i = tmp2;
+    }
+    Q1 = Q;
+    R = A_i;
+}
 
 
-def get_QR(A):
-    sz = len(A)
-    Q = Matrix.identity(sz)
-    A_i = Matrix(A)
 
-    for i in range(sz - 1):
-        col = A_i.get_column(i)
-        H = householder(col, len(A_i), i)
-        Q = Q.multiply(H)
-        A_i = H.multiply(A_i)
+std::pair<int, int> get_roots(Matrix& A, int i) {
+    int size = A.size();
+    double a11 = A[i][i];
+    double a12 = (i + 1 < size) ? A[i][i + 1]:0;
+    double a21 = (i + 1 < size) ? A[i + 1][i]:0;
+    double a22 = (i + 1 < size) ? A[i + 1][i + 1]:0;
+    double c = 1, b = -a11 - a22, a = a11 * a22 - a12 * a21;
+    double x1, x2;
+    if ((b*b - 4*a*c) >= 0) {
+        x1 = (-b + sqrt(b*b - 4*a*c))/(2 * a);
+        x2 = (-b - sqrt(b*b - 4*a*c))/(2 * a);
+    }
+    return std::make_pair(x1, x2);
+}
 
-    return Q, A_i
+bool finish_iter_for_complex(Matrix& A, double eps, int i) {
+    Matrix Q, R;
+    get_QR(A, Q, R);
+    Matrix A_n = R*Q;
+    std::pair<int, int> l1 = get_roots(A, i), l2 = get_roots(A_n, i);
+    if (std::abs(l1.first - l1.first) <= eps && std::abs(l1.second - l2.second) <= eps) {
+        return true;
+    }
+    else
+        return false;
+}
 
-get_QR(Martix &A_i, Matrix& Q, Matrix& R)
-
-def get_roots(A, i):
-    sz = len(A)
-    a11 = A[i][i]
-    a12 = A[i][i + 1] if i + 1 < sz else 0
-    a21 = A[i + 1][i] if i + 1 < sz else 0
-    a22 = A[i + 1][i + 1] if i + 1 < sz else 0
-    return np.roots((1, -a11 - a22, a11 * a22 - a12 * a21))
-
-
-def finish_iter_for_complex(A, eps, i):
-    Q, R = get_QR(A)
-    A_next = R.multiply(Q)
-    lambda1 = get_roots(A, i)
-    lambda2 = get_roots(A_next, i)
-    return True if abs(lambda1[0] - lambda2[0]) <= eps and \
-                abs(lambda1[1] - lambda2[1]) <= eps else False
-
-
-def get_eigenvalue(A, eps, i):
-    A_i = Matrix(A)
-    while True:
-        Q, R = get_QR(A_i)
-        A_i = R.multiply(Q)
-        a = np.array(A_i.get_data())
-        if norm(a[i + 1:, i]) <= eps:
-            res = (a[i][i], False, A_i)
-            break
-        elif norm(a[i + 2:, i]) <= eps and finish_iter_for_complex(A_i, eps, i):
-            res = (get_roots(A_i, i), True, A_i)
-            break
-    return res
-
-void get_eigenvalus(Matrix& A, double eps, int i) {
+std::tuple<double, bool, Matrix> get_eigenvalues(Matrix& A, double eps, int i) {
 	Matrix A_i = A;
+    std::tuple <double, bool, Matrix> res;
 	while (1) {
 		Matrix Q, R;
 		get_QR(A_i, Q, R);
+        A_i = R*Q;
+        if (finish_iter_for_complex(A_i, eps, i)) {
+            res = std::make_tuple(A_i[i][i], true, A_i);
+            break;
+        }
 	}
+    return res;
 }
-
-def QR_method(A, eps):
-    res = Vector()
-    i = 0
-    A_i = Matrix(A)
-    while i < len(A):
-        eigenval = get_eigenvalue(A_i, eps, i)
-        if eigenval[1]:
-            res.extend(eigenval[0])
-            i += 2
-        else:
-            res.append(eigenval[0])
-            i += 1
-        A_i = eigenval[2]
-    return res, i
     
-void QR(Matrix& A, double eps) {
+std::tuple<Vector, int> QR(Matrix& A, double eps) {
 	Vector res;
 	int i = 0, size = A.size();
 	Matrix A_i = A;
 	while (i < size) {
-		bool cond;
-		int 
+		std::tuple<double, bool, Matrix> eval = get_eigenvalues(A_i, eps, i);
+        if (std::get<1>(eval)) {
+            res.push(std::get<0>(eval));
+        }
 	}
+    return make_tuple(res, i);
 }
 
 int main() {
@@ -123,6 +132,9 @@ int main() {
 	double eps;
 	std::cin >> eps;
 	
-	
-	
+	std::tuple<Vector, int> res = QR(A, eps);
+    
+    Vector eval = std::get<0>(res);
+
+    eval.show();
 }

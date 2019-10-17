@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/artem/github/study/numeric methods/1/1.5"
+CMAKE_SOURCE_DIR = "/home/bsb/github/study/numeric methods/1/1.5"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/artem/github/study/numeric methods/1/1.5/build"
+CMAKE_BINARY_DIR = "/home/bsb/github/study/numeric methods/1/1.5/build"
 
 #=============================================================================
 # Target rules for target CMakeFiles/matrix.dir
@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = "/home/artem/github/study/numeric methods/1/1.5/build"
 CMakeFiles/matrix.dir/all:
 	$(MAKE) -f CMakeFiles/matrix.dir/build.make CMakeFiles/matrix.dir/depend
 	$(MAKE) -f CMakeFiles/matrix.dir/build.make CMakeFiles/matrix.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" --progress-num=3,4 "Built target matrix"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" --progress-num=3,4 "Built target matrix"
 .PHONY : CMakeFiles/matrix.dir/all
 
 # Include target in all.
@@ -76,9 +76,9 @@ all: CMakeFiles/matrix.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/matrix.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/matrix.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" 0
 .PHONY : CMakeFiles/matrix.dir/rule
 
 # Convenience name for target.
@@ -103,7 +103,7 @@ clean: CMakeFiles/matrix.dir/clean
 CMakeFiles/operations.dir/all:
 	$(MAKE) -f CMakeFiles/operations.dir/build.make CMakeFiles/operations.dir/depend
 	$(MAKE) -f CMakeFiles/operations.dir/build.make CMakeFiles/operations.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" --progress-num=5,6 "Built target operations"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" --progress-num=5,6 "Built target operations"
 .PHONY : CMakeFiles/operations.dir/all
 
 # Include target in all.
@@ -113,9 +113,9 @@ all: CMakeFiles/operations.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/operations.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/operations.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" 0
 .PHONY : CMakeFiles/operations.dir/rule
 
 # Convenience name for target.
@@ -140,7 +140,7 @@ clean: CMakeFiles/operations.dir/clean
 CMakeFiles/vector.dir/all:
 	$(MAKE) -f CMakeFiles/vector.dir/build.make CMakeFiles/vector.dir/depend
 	$(MAKE) -f CMakeFiles/vector.dir/build.make CMakeFiles/vector.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" --progress-num=7,8 "Built target vector"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" --progress-num=7,8 "Built target vector"
 .PHONY : CMakeFiles/vector.dir/all
 
 # Include target in all.
@@ -150,9 +150,9 @@ all: CMakeFiles/vector.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/vector.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/vector.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" 0
 .PHONY : CMakeFiles/vector.dir/rule
 
 # Convenience name for target.
@@ -174,12 +174,12 @@ clean: CMakeFiles/vector.dir/clean
 # Target rules for target CMakeFiles/main.dir
 
 # All Build rule for target.
+CMakeFiles/main.dir/all: CMakeFiles/matrix.dir/all
 CMakeFiles/main.dir/all: CMakeFiles/operations.dir/all
 CMakeFiles/main.dir/all: CMakeFiles/vector.dir/all
-CMakeFiles/main.dir/all: CMakeFiles/matrix.dir/all
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" --progress-num=1,2 "Built target main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" --progress-num=1,2 "Built target main"
 .PHONY : CMakeFiles/main.dir/all
 
 # Include target in all.
@@ -189,9 +189,9 @@ all: CMakeFiles/main.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" 8
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" 8
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" 0
 .PHONY : CMakeFiles/main.dir/rule
 
 # Convenience name for target.

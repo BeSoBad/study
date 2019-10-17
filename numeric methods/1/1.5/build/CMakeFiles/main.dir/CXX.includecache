@@ -34,7 +34,7 @@ string
 fstream
 -
 
-/home/artem/github/study/numeric methods/1/1.5/main.cpp
+/home/bsb/github/study/numeric methods/1/1.5/main.cpp
 iostream
 -
 vector
@@ -43,10 +43,14 @@ fstream
 -
 cmath
 -
+utility
+-
+tuple
+-
 matrix.h
-/home/artem/github/study/numeric methods/1/1.5/matrix.h
+/home/bsb/github/study/numeric methods/1/1.5/matrix.h
 vector.h
-/home/artem/github/study/numeric methods/1/1.5/vector.h
+/home/bsb/github/study/numeric methods/1/1.5/vector.h
 operations.h
-/home/artem/github/study/numeric methods/1/1.5/operations.h
+/home/bsb/github/study/numeric methods/1/1.5/operations.h
 

@@ -1,4 +1,4 @@
-# Install script for directory: /home/artem/github/study/numeric methods/1/1.5
+# Install script for directory: /home/bsb/github/study/numeric methods/1/1.5
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/artem/github/study/numeric methods/1/1.5/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/bsb/github/study/numeric methods/1/1.5/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

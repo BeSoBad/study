@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/artem/github/study/numeric methods/1/1.5/include/operations.cpp" "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles/operations.dir/include/operations.cpp.o"
+  "/home/bsb/github/study/numeric methods/1/1.5/include/operations.cpp" "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles/operations.dir/include/operations.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

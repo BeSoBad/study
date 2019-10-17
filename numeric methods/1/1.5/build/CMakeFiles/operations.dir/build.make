@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/artem/github/study/numeric methods/1/1.5"
+CMAKE_SOURCE_DIR = "/home/bsb/github/study/numeric methods/1/1.5"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/artem/github/study/numeric methods/1/1.5/build"
+CMAKE_BINARY_DIR = "/home/bsb/github/study/numeric methods/1/1.5/build"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/operations.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/operations.dir/flags.make
 
 CMakeFiles/operations.dir/include/operations.cpp.o: CMakeFiles/operations.dir/flags.make
 CMakeFiles/operations.dir/include/operations.cpp.o: ../include/operations.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/operations.dir/include/operations.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operations.dir/include/operations.cpp.o -c "/home/artem/github/study/numeric methods/1/1.5/include/operations.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/operations.dir/include/operations.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/operations.dir/include/operations.cpp.o -c "/home/bsb/github/study/numeric methods/1/1.5/include/operations.cpp"
 
 CMakeFiles/operations.dir/include/operations.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operations.dir/include/operations.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/artem/github/study/numeric methods/1/1.5/include/operations.cpp" > CMakeFiles/operations.dir/include/operations.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/bsb/github/study/numeric methods/1/1.5/include/operations.cpp" > CMakeFiles/operations.dir/include/operations.cpp.i
 
 CMakeFiles/operations.dir/include/operations.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operations.dir/include/operations.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/artem/github/study/numeric methods/1/1.5/include/operations.cpp" -o CMakeFiles/operations.dir/include/operations.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/bsb/github/study/numeric methods/1/1.5/include/operations.cpp" -o CMakeFiles/operations.dir/include/operations.cpp.s
 
 CMakeFiles/operations.dir/include/operations.cpp.o.requires:
 
@@ -91,7 +91,7 @@ operations_EXTERNAL_OBJECTS =
 liboperations.a: CMakeFiles/operations.dir/include/operations.cpp.o
 liboperations.a: CMakeFiles/operations.dir/build.make
 liboperations.a: CMakeFiles/operations.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library liboperations.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library liboperations.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/operations.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/operations.dir/link.txt --verbose=$(VERBOSE)
 
@@ -109,6 +109,6 @@ CMakeFiles/operations.dir/clean:
 .PHONY : CMakeFiles/operations.dir/clean
 
 CMakeFiles/operations.dir/depend:
-	cd "/home/artem/github/study/numeric methods/1/1.5/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/artem/github/study/numeric methods/1/1.5" "/home/artem/github/study/numeric methods/1/1.5" "/home/artem/github/study/numeric methods/1/1.5/build" "/home/artem/github/study/numeric methods/1/1.5/build" "/home/artem/github/study/numeric methods/1/1.5/build/CMakeFiles/operations.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/home/bsb/github/study/numeric methods/1/1.5/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/bsb/github/study/numeric methods/1/1.5" "/home/bsb/github/study/numeric methods/1/1.5" "/home/bsb/github/study/numeric methods/1/1.5/build" "/home/bsb/github/study/numeric methods/1/1.5/build" "/home/bsb/github/study/numeric methods/1/1.5/build/CMakeFiles/operations.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/operations.dir/depend
 

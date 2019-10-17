@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/artem/github/study/numeric methods/1/1.5/include/matrix.h
+/home/bsb/github/study/numeric methods/1/1.5/include/matrix.h
 vector
 -
 string
@@ -18,17 +18,17 @@ fstream
 cmath
 -
 
-/home/artem/github/study/numeric methods/1/1.5/include/operations.cpp
+/home/bsb/github/study/numeric methods/1/1.5/include/operations.cpp
 operations.h
-/home/artem/github/study/numeric methods/1/1.5/include/operations.h
+/home/bsb/github/study/numeric methods/1/1.5/include/operations.h
 
-/home/artem/github/study/numeric methods/1/1.5/include/operations.h
+/home/bsb/github/study/numeric methods/1/1.5/include/operations.h
 vector.h
-/home/artem/github/study/numeric methods/1/1.5/include/vector.h
+/home/bsb/github/study/numeric methods/1/1.5/include/vector.h
 matrix.h
-/home/artem/github/study/numeric methods/1/1.5/include/matrix.h
+/home/bsb/github/study/numeric methods/1/1.5/include/matrix.h
 
-/home/artem/github/study/numeric methods/1/1.5/include/vector.h
+/home/bsb/github/study/numeric methods/1/1.5/include/vector.h
 iostream
 -
 vector
