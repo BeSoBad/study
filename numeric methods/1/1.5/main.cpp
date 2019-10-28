@@ -33,7 +33,7 @@ Matrix householder(Vector& col, int size, int i) {
     for (int j = i; j < size; j++)
         tmp[j] = col[j];
     v[i] = col[i] + sign(col[i])*tmp.norm();
-    Matrix H(size, size), E(size, size), tmp_m = v*v;
+    Matrix H(size, size, 0), E(size, size, 1), tmp_m = v*v;
     Matrix tmp_m2 = tmp_m*(2*(1/get_mult_num(v, v)));
     H = E - tmp_m;
     return H;
@@ -41,7 +41,7 @@ Matrix householder(Vector& col, int size, int i) {
 
 Vector get_column(Matrix &A, int i) {
     Vector col(0);
-    for (int j = 0; j < A.size(); i++) {
+    for (int j = 0; j < A.size(); j++) {
         col.push(A[j][i]);
     }
     return col;
@@ -49,7 +49,7 @@ Vector get_column(Matrix &A, int i) {
 
 int get_QR(Matrix &A, Matrix& Q1, Matrix& R) {
     int size = A.size();
-    Matrix Q(size, size);
+    Matrix Q(size, size, 1);
     Matrix A_i = A;
     for (int i = 0; i < size - 1; i++) {
         Vector col = get_column(A, i);
@@ -114,23 +114,24 @@ std::tuple<Vector, int> QR(Matrix& A, double eps) {
 		std::tuple<double, bool, Matrix> eval = get_eigenvalues(A_i, eps, i);
         if (std::get<1>(eval)) {
             res.push(std::get<0>(eval));
+            i += 2;
         }
 	}
     return make_tuple(res, i);
 }
 
 int main() {
-	std::string path = "matrix.txt";
+	std::string path = "/home/bsb/github/study/numeric methods/1/1.5/build/matrix.txt";
 	Matrix A;
 	A.readMatrix(path);
 	A.show();
 	int n = A.size();
 	Vector b;
-	b.readVector("vector.txt");
+	b.readVector("/home/bsb/github/study/numeric methods/1/1.5/build/vector.txt");
 	b.show();
 	
-	double eps;
-	std::cin >> eps;
+	double eps = 0.01;
+	//std::cin >> eps;
 	
 	std::tuple<Vector, int> res = QR(A, eps);
     

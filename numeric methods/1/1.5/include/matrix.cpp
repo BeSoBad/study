@@ -1,10 +1,12 @@
 #include <iostream>
 #include "matrix.h"
-Matrix::Matrix(int nn, int mm) {
+Matrix::Matrix(int nn, int mm, int diag) {
     std::vector <std::vector <double>> tmp(nn, std::vector <double> (mm));
     x = tmp;
     n = nn;
     m = mm;
+    for (int i = 0; i < n; i++)
+        x[i][i] = diag;
 }
 std::vector <double>& Matrix::operator[](int i) {
     return x[i];

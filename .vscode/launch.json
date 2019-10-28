@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/numeric methods/1/1.4/build/main",
+            "program": "${workspaceFolder}/numeric methods/1/1.5/build/main",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
