@@ -33,18 +33,30 @@ Matrix householder(Vector& col, int size, int i) {
     for (int j = i; j < size; j++)
         tmp[j] = col[j];
     v[i] = col[i] + sign(col[i])*tmp.norm();
+	for (int j = i + 1; j < size; j++)
+		v[j] = col[j];
     Matrix H(size, size, 0), E(size, size, 1), tmp_m = v*v;
-    Matrix tmp_m2 = tmp_m*(2*(1/get_mult_num(v, v)));
-    H = E - tmp_m;
+    Matrix tmp_m2 = tmp_m*(2/get_mult_num(v, v));
+    H = E - tmp_m2;
     return H;
 }
 
-Vector get_column(Matrix &A, int i) {
-    Vector col(0);
-    for (int j = 0; j < A.size(); j++) {
-        col.push(A[j][i]);
-    }
-    return col;
+Vector get_column(Matrix& A, int i) {
+	Vector col(0);
+	for (int j = 0; j < A.size(); j++) {
+		col.push(A[j][i]);
+	}
+	return col;
+}
+
+Vector get_sub_diagonal(Matrix& A, int indent, int i_column) {
+	Vector col(0);
+	for (int j = indent; j < A.size(); j++) {
+		col.push(A[j][i_column]);
+	}
+	if (col.size() == 0)
+		col.push(0);
+	return col;
 }
 
 int get_QR(Matrix &A, Matrix& Q1, Matrix& R) {
@@ -54,88 +66,107 @@ int get_QR(Matrix &A, Matrix& Q1, Matrix& R) {
     for (int i = 0; i < size - 1; i++) {
         Vector col = get_column(A, i);
         Matrix H = householder(col, size, i);
-        Matrix tmp1 = Q*H, tmp2 = A_i*H;
+        Matrix tmp1 = Q*H, tmp2 = H*A_i;
         Q = tmp1;
         A_i = tmp2;
     }
     Q1 = Q;
     R = A_i;
+	return 0;
 }
 
 
 
-std::pair<int, int> get_roots(Matrix& A, int i) {
+pair<double, double> get_roots(Matrix& A, int i) {
     int size = A.size();
     double a11 = A[i][i];
     double a12 = (i + 1 < size) ? A[i][i + 1]:0;
     double a21 = (i + 1 < size) ? A[i + 1][i]:0;
     double a22 = (i + 1 < size) ? A[i + 1][i + 1]:0;
-    double c = 1, b = -a11 - a22, a = a11 * a22 - a12 * a21;
+    double a = 1, b = -a11 - a22, c = a11 * a22 - a12 * a21;
     double x1, x2;
     if ((b*b - 4*a*c) >= 0) {
         x1 = (-b + sqrt(b*b - 4*a*c))/(2 * a);
         x2 = (-b - sqrt(b*b - 4*a*c))/(2 * a);
     }
-    return std::make_pair(x1, x2);
+    return make_pair(x1, x2);
 }
 
 bool finish_iter_for_complex(Matrix& A, double eps, int i) {
     Matrix Q, R;
     get_QR(A, Q, R);
     Matrix A_n = R*Q;
-    std::pair<int, int> l1 = get_roots(A, i), l2 = get_roots(A_n, i);
-    if (std::abs(l1.first - l1.first) <= eps && std::abs(l1.second - l2.second) <= eps) {
+    pair<double, double> l1 = get_roots(A, i), l2 = get_roots(A_n, i);
+    if (abs(l1.first - l2.first) <= eps && abs(l1.second - l2.second) <= eps) {
         return true;
     }
     else
         return false;
 }
 
-std::tuple<double, bool, Matrix> get_eigenvalues(Matrix& A, double eps, int i) {
+tuple <pair <double, double>, bool, Matrix> get_eigenvalues(Matrix& A, double eps, int i) {
 	Matrix A_i = A;
-    std::tuple <double, bool, Matrix> res;
+    tuple <pair <double, double>, bool, Matrix> res;
+	int cnt = 0;
 	while (1) {
 		Matrix Q, R;
 		get_QR(A_i, Q, R);
         A_i = R*Q;
-        if (finish_iter_for_complex(A_i, eps, i)) {
-            res = std::make_tuple(A_i[i][i], true, A_i);
+		Vector subdiag1 = get_sub_diagonal(A_i, i + 1, 0);
+		Vector subdiag2 = get_sub_diagonal(A_i, i + 2, 0);
+		if (subdiag1.norm() <= eps) {
+			auto a = make_pair(A_i[i][i], 0);
+			res = make_tuple(a, false, A_i);
+			break;
+		}
+		else if (subdiag2.norm() <= eps && finish_iter_for_complex(A_i, eps, i)) {
+			auto a = get_roots(A_i, i);
+            res = make_tuple(a, true, A_i);
             break;
         }
+		cnt++;
 	}
     return res;
 }
     
-std::tuple<Vector, int> QR(Matrix& A, double eps) {
-	Vector res;
+tuple<vector <double>, int> QR(Matrix& A, double eps) {
+	vector <double> res;
 	int i = 0, size = A.size();
 	Matrix A_i = A;
 	while (i < size) {
-		std::tuple<double, bool, Matrix> eval = get_eigenvalues(A_i, eps, i);
-        if (std::get<1>(eval)) {
-            res.push(std::get<0>(eval));
+		tuple<pair <double, double>, bool, Matrix> eval = get_eigenvalues(A_i, eps, i);
+        if (get<1>(eval)) {
+            res.push_back(get<0>(eval).first);
+			res.push_back(get<0>(eval).second);
             i += 2;
         }
+		else {
+			res.push_back(get<0>(eval).first);
+            i += 1;
+		}
 	}
     return make_tuple(res, i);
 }
 
 int main() {
-	std::string path = "/home/bsb/github/study/numeric methods/1/1.5/build/matrix.txt";
+	string path = "matrix.txt";
 	Matrix A;
 	A.readMatrix(path);
 	A.show();
 	int n = A.size();
 	Vector b;
-	b.readVector("/home/bsb/github/study/numeric methods/1/1.5/build/vector.txt");
+	b.readVector("vector.txt");
 	b.show();
 	
 	double eps = 0.01;
-	//std::cin >> eps;
+	//cin >> eps;
 	
-	std::tuple<Vector, int> res = QR(A, eps);
+	tuple<vector <double>, int> res = QR(A, eps);
     
-    Vector eval = std::get<0>(res);
+	vector <double> eval = get<0>(res);
 
-    eval.show();
+	for (int i = 0; i < eval.size(); i++) {
+		cout << eval[i] << endl;
+	}
+    //eval.show();
 }
