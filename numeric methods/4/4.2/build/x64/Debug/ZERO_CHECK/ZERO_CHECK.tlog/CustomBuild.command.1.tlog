@@ -1,0 +1,10 @@
+^C:\USERS\АРТЁМ\DOCUMENTS\GITHUB\STUDY\NUMERIC METHODS\4\4.2\BUILD\CMAKEFILES\CC4193E351AC6AB2696C3E11B3217C23\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/Артём/Documents/GitHub/study/numeric methods/4/4.2" "-BC:/Users/Артём/Documents/GitHub/study/numeric methods/4/4.2/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/Артём/Documents/GitHub/study/numeric methods/4/4.2/build/NM_LAB_4.2.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

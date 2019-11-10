@@ -11,28 +11,28 @@
 
 using namespace std;
 
-const int X_COORD = 50;// X - размерность ] должны
-const int Y_COORD = 50;// Y - размерность ] быть равными
-const float ITERATIONS = 0.00005;// прорисовка графика (чем меньше тем лучше)
+const int X_COORD = 50;// X - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ] пїЅпїЅпїЅпїЅпїЅпїЅ
+const int Y_COORD = 50;// Y - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ] пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+const float ITERATIONS = 0.00005;// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ)
 
-int x_off = X_COORD / 2;// начало
-int y_off = Y_COORD / 2;// оси координат
+int x_off = X_COORD / 2;// пїЅпїЅпїЅпїЅпїЅпїЅ
+int y_off = Y_COORD / 2;// пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-//исходная функция
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 #define expr x
 #define expr2 x*x
 
 
 void drawgrid(float SERIF_OFFSET, float SERIF_DISTANCE) {
 	glBegin(GL_LINES);
-	//задаем цвета
+	//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	glColor3f(0.0, 0.0, 0.0);
 
-	//рисуем координатные оси
-	//горизонталь
+	//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+	//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	glVertex2f(0.0, Y_COORD / 2);
 	glVertex2f(X_COORD, Y_COORD / 2);
-	//засечки по горизонтали
+	//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	int p = X_COORD / 2;
 	for (int i = X_COORD / 2; i < X_COORD; i += SERIF_DISTANCE, p -= SERIF_DISTANCE) {
 		glVertex2f(i, Y_COORD / 2);
@@ -41,11 +41,11 @@ void drawgrid(float SERIF_OFFSET, float SERIF_DISTANCE) {
 		glVertex2f(p, Y_COORD / 2);
 		glVertex2f(p, Y_COORD / 2 + SERIF_OFFSET);
 	}
-	//вертикаль
+	//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	int t = Y_COORD / 2;
 	glVertex2f(X_COORD / 2, Y_COORD);
 	glVertex2f(X_COORD / 2, 0.0);
-	//засечки по вертикали
+	//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	for (int i = Y_COORD / 2; i < Y_COORD; i += SERIF_DISTANCE, t -= SERIF_DISTANCE) {
 		glVertex2f(X_COORD / 2, i);
 		glVertex2f(Y_COORD / 2 + SERIF_OFFSET, i);
@@ -57,14 +57,14 @@ void drawgrid(float SERIF_OFFSET, float SERIF_DISTANCE) {
 }
 
 void drawfunc(vector <double>& x, vector <double>& y, double color) {
-	//рисуем график
+	//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	glBegin(GL_LINES);
 	float j = 0;
 	glColor3f(color, 0.0, 0.0);
 	//for (float x = -X_COORD * 2; x < X_COORD * 2; x += 0.5) {
-	//	//перерасчитываем координаты
+	//	//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	//	j = expr;
-	//	glVertex2d(x_off + x, y_off + j);//не убирать x и y!! это оффсет по осям!
+	//	glVertex2d(x_off + x, y_off + j);//пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ x пїЅ y!! пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ!
 	//}
 	for (int i = 0; i < x.size() - 1; i++) {
 		glVertex2f(x_off + x[i] * 5, y_off + y[i] * 5);
@@ -75,15 +75,15 @@ void drawfunc(vector <double>& x, vector <double>& y, double color) {
 
 
 void funcinfo(int val1, int val2) {
-	//информация о графике
+	//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	for (float x = val1; x <= val2; x++) {
 		float j = expr;
 		cout << x << " : " << j << endl;
 	}
 }
 
-vector <double> points_g, F_g_1, F_g_2, F_g_3;
-double color_g_1, color_g_2, color_g_3;
+vector <double> points_g, F_g;
+double color_g;
 
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -92,9 +92,7 @@ void display() {
 	//vector <double>& points, vector <double>& F, double color
 
 	drawgrid(0.3, 5);
-	drawfunc(points_g, F_g_1, color_g_1);
-	drawfunc(points_g, F_g_2, color_g_2);
-	drawfunc(points_g, F_g_3, color_g_3);
+	drawfunc(points_g, F_g, color_g);
 	glutSwapBuffers();
 
 	glFlush();
@@ -113,66 +111,133 @@ tuple <vector<double>, vector<double>> read_data(string path, int count) {
 	return make_tuple(points, values);
 }
 
-double F(vector <double>& coefs, double x) {
-	double sum = 0;
-	for (int i = 0; i < coefs.size(); i++)
-		sum += pow(x, i) * coefs[i];
-	return sum;
+double f(double a, double b, double c, double d, double x) {
+	return a + b * x + c * x * x + d * x * x * x;
 }
 
-double sum_squared_errors(vector <double> F, vector <double> y) {
-	double sum = 0;
-	for (int i = 0; i < F.size(); i++)
-		sum += pow(F[i] - y[i], 2);
-	return sum;
+vector <double> get_a(vector <double>& f) {
+	vector <double> a(1);
+	for (int i = 0; i < f.size() - 1; i++)
+		a.push_back(f[i]);
+	return a;
 }
 
-Vector MLS(double n, vector <double> x, vector <double> y) {
-	int N = x.size();
-	Matrix mat(n + 1, n + 1);
-	for (int i = 0; i < n + 1; i++) {
-		for (int j = 0; j < n + 1; j++) {
-			double sum = 0;
-			for (int k = 0; k < x.size(); k++)
-				sum += pow(x[k], i + j);
-			mat[i][j] = sum;
-		}
+vector <double> get_b(vector <double>& f, vector <double>& h, vector <double>& c) {
+	vector <double> b(1);
+	int n = f.size() - 1;
+	for (int i = 1; i < n; i++) {
+		double p1 = (f[i] - f[i - 1]);
+		double p2 = h[i];
+		double p3 = double(1) / 3;
+		double p4 = h[i] * (c[i + 1] + 2 * c[i]);
+		b.push_back(p1 / p2 - p3 * p4);
+		//b.push_back((f[i] - f[i - 1]) / h[i] - double(1) / 3 * h[i] * (c[i + 1] + 2 * c[i]));
 	}
-	mat[0][0] = N + 1;
-	Vector b(n + 1);
-	for (int i = 0; i < n + 1; i++) {
-		double sum = 0;
-		for (int j = 0; j < N; j++)
-			sum += pow(x[j], i) * y[j];
-		b[i] = sum;
-	}
-	Matrix L(n + 1, n + 1), U(n + 1, n + 1);
-	LU(mat, L, U, n + 1);
-	return solve(L, U, b);
+	b.push_back((f[n] - f[n - 1]) / h[n] - double(2) / 3 * h[n] * c[n]);
+	return b;
 }
+
+vector <double> run_method(int n, vector <double>& a, vector <double>& c, vector <double>& b, vector <double>& f) {
+	vector <double> x(n);
+	double m;
+	for (int i = 1; i < n; i++) {
+		m = a[i] / c[i - 1];
+		c[i] = c[i] - m * b[i - 1];
+		f[i] = f[i] - m * f[i - 1];
+	}
+
+	x[n - 1] = f[n - 1] / c[n - 1];
+
+	for (int i = n - 2; i >= 0; i--)
+		x[i] = (f[i] - b[i] * x[i + 1]) / c[i];
+	return x;
+}
+
+vector <double> get_c(vector <double>& f, vector <double>& h) {
+	int n = f.size();
+	vector <double> a(1), b, c, d;
+	for (int i = 3; i < n; i++)
+		a.push_back(h[i - 1]);
+	for (int i = 2; i < n; i++)
+		b.push_back(2 * (h[i - 1] + h[i]));
+	for (int i = 2; i < n - 1; i++)
+		c.push_back(h[i]);
+	c.push_back(0);
+	for (int i = 2; i < n; i++)
+		d.push_back(3 * ((f[i] - f[i - 1]) / h[i] - ((f[i - 1] - f[i - 2]) / h[i - 1])));
+	vector <double> x = run_method(a.size(), a, c, b, d);
+	vector <double> res(2);
+	for (int i = 0; i < x.size(); i++)
+		res.push_back(x[i]);
+	return res;
+}
+
+vector <double> get_d(vector <double>& h, vector <double>& c) {
+	vector <double> d(1);
+	int n = c.size() - 1;
+	for (int i = 1; i < n; i++)
+		d.push_back((c[i + 1] - c[i]) / (3 * h[i]));
+	d.push_back(-c[n] / (3 * h[n]));
+	return d;
+}
+
+int find_interval(vector <double>& points, double x) {
+	for (int i = 0; i < points.size(); i++)
+		if (points[i] <= x && points[i + 1] >= x)
+			return i;
+}
+
+tuple <double, vector <double>, vector <double>, vector <double>, vector <double>> 
+spline_interpolation(vector <double>& points, vector <double>& values, double x) {
+	vector <double> h(1);
+	for (int i = 1; i < points.size(); i++)
+		h.push_back(points[i] - points[i - 1]);
+	vector <double> c = get_c(values, h);
+	vector <double> a = get_a(values);
+	vector <double> b = get_b(values, h, c);
+	vector <double> d = get_d(h, c);
+	int i = find_interval(points, x);
+	double res = f(a[i + 1], b[i + 1], c[i + 1], d[i + 1], x - points[i]);
+	return make_tuple(res, a, b, c, d);
+}
+
+
+template<typename T>
+std::vector<double> linspace(T start_in, T end_in, int num_in) {
+	std::vector<double> linspaced;
+	double start = static_cast<double>(start_in);
+	double end = static_cast<double>(end_in);
+	double num = static_cast<double>(num_in);
+	if (num == 0) { return linspaced; }
+	if (num == 1)
+	{
+		linspaced.push_back(start);
+		return linspaced;
+	}
+	double delta = (end - start) / (num - 1);
+	for (int i = 0; i < num - 1; ++i)
+	{
+		linspaced.push_back(start + delta * i);
+	}
+	linspaced.push_back(end);
+	return linspaced;
+}
+
 
 int main(int argc, char** argv) {
-	auto data = read_data("input.txt", 6);
+	
+	auto data = read_data("input.txt", 5);
 	vector <double> points = get<0>(data), values = get<1>(data);
-	Vector coefs = MLS(1, points, values);
-	for (int i = 0; i < coefs.size(); i++)
-		cout << coefs[i] << endl;
+	double x = 3;
+//	cin >> x;
 
-	vector <double> F1;
-	for (int i = 0; i < points.size(); i++)
-		F1.push_back(F(coefs.x, points[i]));
-	double err1 = sum_squared_errors(F1, values);
-	cout << "Err: " << err1 << endl;
+	auto res = spline_interpolation(points, values, x);
 
-	coefs = MLS(2, points, values);
-	for (int i = 0; i < coefs.size(); i++)
-		cout << coefs[i] << endl;
-
-	vector <double> F2;
-	for (int i = 0; i < points.size(); i++)
-		F2.push_back(F(coefs.x, points[i]));
-	double err2 = sum_squared_errors(F2, values);
-	cout << "Err: " << err2 << endl;
+	double value = get<0>(res);
+	vector <double> a = get<1>(res);
+	vector <double> b = get<2>(res);
+	vector <double> c = get<3>(res);
+	vector <double> d = get<4>(res);
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
@@ -183,15 +248,24 @@ int main(int argc, char** argv) {
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	////пространство координат
+	//////пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	glOrtho(0.0, X_COORD, 0.0, Y_COORD, -1.0, 1.0);
-	points_g = points;
-	F_g_1 = F1;
-	F_g_2 = F2;
-	F_g_3 = values;
-	color_g_1 = 0.0;
-	color_g_2 = 1.0;
-	color_g_3 = 0.3;
+  
+	for (int i = 0; i < points.size() - 1; i++) {
+		vector <double> x1 = linspace(points[i], points[i + 1], 10);
+		vector <double> y1;
+		for (int j = 0; j < x1.size(); j++) {
+			double r = f(a[i + 1], b[i + 1], c[i + 1], d[i + 1], x1[j] - points[i]);
+			y1.push_back(r);
+		}
+		for (int j = 0; j < x1.size(); j++) {
+			points_g.push_back(x1[j]);
+			F_g.push_back(y1[j]);
+		}
+	}
+
+	color_g = 1.0;
+
 	glutDisplayFunc(display);
 	glutMainLoop();
 }

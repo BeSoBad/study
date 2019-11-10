@@ -1,6 +1,6 @@
-^C:\USERS\АРТЁМ\DOCUMENTS\GITHUB\STUDY\NUMERIC METHODS\3\3.3\BUILD\CMAKEFILES\5766AE36AB8AC5FF3D309D9F09958993\GENERATE.STAMP.RULE
+^C:\USERS\АРТЁМ\DOCUMENTS\GITHUB\STUDY\NUMERIC METHODS\3\3.2\BUILD\CMAKEFILES\BC1A8DCA55F67C1B7C1F668026572B61\GENERATE.STAMP.RULE
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.3" "-BC:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.3/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.3/build/NM_LAB_3.3.sln"
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.2" "-BC:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.2/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.2/build/NM_LAB_3.2.sln"
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

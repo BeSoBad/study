@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.3
+# Install script for directory: C:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/NM_LAB_3.1")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/NM_LAB_3.2")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.3/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.2/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
