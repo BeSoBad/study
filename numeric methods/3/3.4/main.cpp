@@ -6,6 +6,8 @@
 #include <string>
 #include <tuple>
 
+//Вычислить первую и вторую производную от таблично заданной функции 
+
 using namespace std;
 
 tuple <vector<double>, vector<double>> read_data(string path, int count) {
@@ -41,14 +43,27 @@ double second_derivative(vector <double> x, vector <double> y, double x0) {
 	return 2 * (num1 - num2) / (x[i + 2] - x[i]);
 }
 
+template<typename T>
+std::ostream& operator<<(std::ostream& s, std::vector<T> t) {
+	s << "[";
+	for (std::size_t i = 0; i < t.size(); i++) {
+		s << t[i] << (i == t.size() - 1 ? "" : ", ");
+	}
+	return s << "]" << std::endl;
+}
 
 
 int main() {
+	auto f = freopen("log.txt", "w", stdout);
 	auto data = read_data("input.txt", 5);
 	vector <double> points = get<0>(data), values = get<1>(data);
 	double x;
 	cin >> x;
+	cout << "points: " << points;
+	cout << "values: " << values;
+	cout << "x: " << x << endl;
 	double first_d = first_derivative(points, values, x);
 	double second_d = second_derivative(points, values, x);
-	cout << first_d << " " << second_d << endl;
+	cout << "first derivative: " << first_d << endl;
+	cout << "second derivative: " << second_d << endl;
 }

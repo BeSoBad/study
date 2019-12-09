@@ -8,7 +8,7 @@
 #include "include/matrix.cpp"
 #include "include/vector.cpp"
 #include "include/LU.cpp"
-
+//Для таблично заданной функции путем решения нормальной системы МНК найти приближающие многочлены
 using namespace std;
 
 const int X_COORD = 50;// X - размерность ] должны
@@ -23,82 +23,81 @@ int y_off = Y_COORD / 2;// оси координат
 #define expr2 x*x
 
 
-void drawgrid(float SERIF_OFFSET, float SERIF_DISTANCE) {
-	glBegin(GL_LINES);
-	//задаем цвета
-	glColor3f(0.0, 0.0, 0.0);
-
-	//рисуем координатные оси
-	//горизонталь
-	glVertex2f(0.0, Y_COORD / 2);
-	glVertex2f(X_COORD, Y_COORD / 2);
-	//засечки по горизонтали
-	int p = X_COORD / 2;
-	for (int i = X_COORD / 2; i < X_COORD; i += SERIF_DISTANCE, p -= SERIF_DISTANCE) {
-		glVertex2f(i, Y_COORD / 2);
-		glVertex2f(i, Y_COORD / 2 + SERIF_OFFSET);
-
-		glVertex2f(p, Y_COORD / 2);
-		glVertex2f(p, Y_COORD / 2 + SERIF_OFFSET);
-	}
-	//вертикаль
-	int t = Y_COORD / 2;
-	glVertex2f(X_COORD / 2, Y_COORD);
-	glVertex2f(X_COORD / 2, 0.0);
-	//засечки по вертикали
-	for (int i = Y_COORD / 2; i < Y_COORD; i += SERIF_DISTANCE, t -= SERIF_DISTANCE) {
-		glVertex2f(X_COORD / 2, i);
-		glVertex2f(Y_COORD / 2 + SERIF_OFFSET, i);
-
-		glVertex2f(X_COORD / 2, t);
-		glVertex2f(Y_COORD / 2 + SERIF_OFFSET, t);
-	}
-	glEnd();
-}
-
-void drawfunc(vector <double>& x, vector <double>& y, double color) {
-	//рисуем график
-	glBegin(GL_LINES);
-	float j = 0;
-	glColor3f(color, 0.0, 0.0);
-	//for (float x = -X_COORD * 2; x < X_COORD * 2; x += 0.5) {
-	//	//перерасчитываем координаты
-	//	j = expr;
-	//	glVertex2d(x_off + x, y_off + j);//не убирать x и y!! это оффсет по осям!
-	//}
-	for (int i = 0; i < x.size() - 1; i++) {
-		glVertex2f(x_off + x[i] * 5, y_off + y[i] * 5);
-		glVertex2f(x_off + x[i + 1] * 5, y_off + y[i + 1] * 5);
-	}
-	glEnd();
-}
-
-
-void funcinfo(int val1, int val2) {
-	//информация о графике
-	for (float x = val1; x <= val2; x++) {
-		float j = expr;
-		cout << x << " : " << j << endl;
-	}
-}
+//void drawgrid(float SERIF_OFFSET, float SERIF_DISTANCE) {
+//	glBegin(GL_LINES);
+//	//задаем цвета
+//	glColor3f(0.0, 0.0, 0.0);
+//
+//	//рисуем координатные оси
+//	//горизонталь
+//	glVertex2f(0.0, Y_COORD / 2);
+//	glVertex2f(X_COORD, Y_COORD / 2);
+//	//засечки по горизонтали
+//	int p = X_COORD / 2;
+//	for (int i = X_COORD / 2; i < X_COORD; i += SERIF_DISTANCE, p -= SERIF_DISTANCE) {
+//		glVertex2f(i, Y_COORD / 2);
+//		glVertex2f(i, Y_COORD / 2 + SERIF_OFFSET);
+//
+//		glVertex2f(p, Y_COORD / 2);
+//		glVertex2f(p, Y_COORD / 2 + SERIF_OFFSET);
+//	}
+//	//вертикаль
+//	int t = Y_COORD / 2;
+//	glVertex2f(X_COORD / 2, Y_COORD);
+//	glVertex2f(X_COORD / 2, 0.0);
+//	//засечки по вертикали
+//	for (int i = Y_COORD / 2; i < Y_COORD; i += SERIF_DISTANCE, t -= SERIF_DISTANCE) {
+//		glVertex2f(X_COORD / 2, i);
+//		glVertex2f(Y_COORD / 2 + SERIF_OFFSET, i);
+//
+//		glVertex2f(X_COORD / 2, t);
+//		glVertex2f(Y_COORD / 2 + SERIF_OFFSET, t);
+//	}
+//	glEnd();
+//}
+//
+//void drawfunc(vector <double>& x, vector <double>& y, double color) {
+//	//рисуем график
+//	glBegin(GL_LINES);
+//	float j = 0;
+//	glColor3f(color, 0.0, 0.0);
+//	//for (float x = -X_COORD * 2; x < X_COORD * 2; x += 0.5) {
+//	//	//перерасчитываем координаты
+//	//	j = expr;
+//	//	glVertex2d(x_off + x, y_off + j);//не убирать x и y!! это оффсет по осям!
+//	//}
+//	for (int i = 0; i < x.size() - 1; i++) {
+//		glVertex2f(x_off + x[i] * 5, y_off + y[i] * 5);
+//		glVertex2f(x_off + x[i + 1] * 5, y_off + y[i + 1] * 5);
+//	}
+//	glEnd();
+//}
+//
+//
+//void funcinfo(int val1, int val2) {
+//	//информация о графике
+//	for (float x = val1; x <= val2; x++) {
+//		float j = expr;
+//		cout << x << " : " << j << endl;
+//	}
+//}
 
 vector <double> points_g, F_g_1, F_g_2, F_g_3;
 double color_g_1, color_g_2, color_g_3;
 
-void display() {
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	cout << "Osnovnie toshki po vashemu grafiku: \n";
-	//vector <double>& points, vector <double>& F, double color
-
-	drawgrid(0.3, 5);
-	drawfunc(points_g, F_g_1, color_g_1);
-	drawfunc(points_g, F_g_2, color_g_2);
-	drawfunc(points_g, F_g_3, color_g_3);
-	glutSwapBuffers();
-
-	glFlush();
-}
+//void display() {
+//	glClear(GL_COLOR_BUFFER_BIT);
+//
+//	//vector <double>& points, vector <double>& F, double color
+//
+//	drawgrid(0.3, 5);
+//	drawfunc(points_g, F_g_1, color_g_1);
+//	drawfunc(points_g, F_g_2, color_g_2);
+//	drawfunc(points_g, F_g_3, color_g_3);
+//	glutSwapBuffers();
+//
+//	glFlush();
+//}
 
 tuple <vector<double>, vector<double>> read_data(string path, int count) {
 	ifstream f(path);
@@ -151,6 +150,27 @@ Vector MLS(double n, vector <double> x, vector <double> y) {
 	return solve(L, U, b);
 }
 
+void write_dots(string path) {
+	ofstream f;
+	f.open(path);
+	f << points_g.size() << endl << "r" << endl;
+	f << "input values\nscatter" << endl;
+	for (int i = 0; i < points_g.size(); i++) {
+		f << points_g[i] << " " << F_g_1[i] << endl;
+	}
+	f << points_g.size() << endl << "b" << endl;
+	f << "MLS1\nplot" << endl;
+	for (int i = 0; i < points_g.size(); i++) {
+		f << points_g[i] << " " << F_g_2[i] << endl;
+	}
+	f << points_g.size() << endl << "g" << endl;
+	f << "MLS2\nplot" << endl;
+	for (int i = 0; i < points_g.size(); i++) {
+		f << points_g[i] << " " << F_g_3[i] << endl;
+	}
+	f.close();
+}
+
 int main(int argc, char** argv) {
 	auto data = read_data("input.txt", 6);
 	vector <double> points = get<0>(data), values = get<1>(data);
@@ -174,24 +194,28 @@ int main(int argc, char** argv) {
 	double err2 = sum_squared_errors(F2, values);
 	cout << "Err: " << err2 << endl;
 
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowSize(800, 600);
-	glutInitWindowPosition(500, 200);
-	glutCreateWindow("GLUT_TESTING_APP");
+	//glutInit(&argc, argv);
+	//glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+	//glutInitWindowSize(800, 600);
+	//glutInitWindowPosition(500, 200);
+	//glutCreateWindow("GLUT_TESTING_APP");
 
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	////пространство координат
-	glOrtho(0.0, X_COORD, 0.0, Y_COORD, -1.0, 1.0);
+	//glClearColor(1.0, 1.0, 1.0, 1.0);
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
+	//////пространство координат
+	//glOrtho(0.0, X_COORD, 0.0, Y_COORD, -1.0, 1.0);
 	points_g = points;
-	F_g_1 = F1;
-	F_g_2 = F2;
-	F_g_3 = values;
-	color_g_1 = 0.0;
-	color_g_2 = 1.0;
-	color_g_3 = 0.3;
-	glutDisplayFunc(display);
-	glutMainLoop();
+	F_g_1 = values;
+	F_g_2 = F1;
+	F_g_3 = F2;
+	//color_g_1 = 0.0;
+	//color_g_2 = 2.0;
+	//color_g_3 = 1.0;
+	//glutDisplayFunc(display);
+	//glutMainLoop();
+
+	write_dots("dots.txt");
+
+	system("python plot.py");
 }

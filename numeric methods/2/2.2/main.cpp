@@ -7,6 +7,8 @@
 #include <vector.h>
 #include "include/LU.h"
 
+//методы простой итерации и Ньютона решения систем нелинейных уравнений
+
 using namespace std;
 
 template<typename T>
@@ -118,6 +120,7 @@ std::pair <vector<double>, int> method_iterations(double eps, vector<vector<doub
 	x_prev[0] = (interval_x1[1] - interval_x1[0]) / 2;
 	x_prev[1] = (interval_x2[1] - interval_x2[0]) / 2;
 	double q = get_q(x_prev);
+	cout << "iteration method iterations:\n";
 	while (1) {
 		iter_cnt++;
 		x = { phi1(x_prev), phi2(x_prev) };
@@ -127,7 +130,7 @@ std::pair <vector<double>, int> method_iterations(double eps, vector<vector<doub
 				max_abs = abs(x[i] - x_prev[i]);
 		double finish = max_abs * q / (1 - q);
 		cout << iter_cnt << ": " << x;
-		cout << finish << "?" << eps << endl;
+		cout << finish << " ? " << eps << endl;
 		if (finish <= eps)
 			break;
 		x_prev = x;
@@ -142,6 +145,7 @@ std::pair <vector<double>, int> method_newton(double eps, vector<vector<double>>
 	x_prev[0] = (interval_x1[1] - interval_x1[0]) / 2;
 	x_prev[1] = (interval_x2[1] - interval_x2[0]) / 2;
 	double q = get_q(x_prev);
+	cout << "newton method iterations:\n";
 	while (1) {
 		iter_cnt++;
 		if (LU) {
@@ -159,7 +163,7 @@ std::pair <vector<double>, int> method_newton(double eps, vector<vector<double>>
 				max_abs = abs(x[i] - x_prev[i]);
 		double finish = max_abs;
 		cout << iter_cnt << ": " << x;
-		cout << finish << "?" << eps << endl;
+		cout << finish << " ? " << eps << endl;
 		if (finish <= eps)
 			break;
 		x_prev = x;
@@ -168,13 +172,16 @@ std::pair <vector<double>, int> method_newton(double eps, vector<vector<double>>
 }
 
 int main() {
-	double eps = 0.01;
+	auto f = freopen("log.txt", "w", stdout);
+	double eps = 0.001;
 	vector <vector<double>> interval;
 	interval.push_back({1, 2});
 	interval.push_back({0.5, 1.5});
 	auto res = method_newton(eps, interval, true);
+	cout << "newton method answer:\n";
 	std::cout << res.first << " " << res.second << std::endl;
 	res = method_iterations(eps, interval);
+	cout << "iteration method answer:\n";
 	std::cout << res.first << " " << res.second << std::endl;
 	return 0;
 }

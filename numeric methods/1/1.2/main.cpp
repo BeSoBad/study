@@ -8,6 +8,8 @@
 
 using namespace std;
 
+//метод прогонки 
+
 Vector TMA(Matrix& A, Vector& d) {
 	int n = A.size();
 	vector <double> P, Q;
@@ -38,14 +40,18 @@ Vector TMA(Matrix& A, Vector& d) {
 }
 
 int main() {
+	auto f = freopen("log.txt", "w", stdout);
 	Matrix A;
 	std::string path = "matrix.txt";
 	A.readMatrix(path);
+	cout << "input matrix:\n";
 	A.show();
 	int n = A.size();
 	Vector d;
 	d.readVector("vector.txt");
+	cout << "input vector:\n";
 	d.show();
 	Vector x = TMA(A, d);
+	cout << "answer:\n";
 	x.show();
 }

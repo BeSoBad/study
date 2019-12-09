@@ -1,3 +1,0 @@
-C:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.2/build/CMakeFiles/main.dir
-C:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.2/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/Артём/Documents/GitHub/study/numeric methods/3/3.2/build/CMakeFiles/ZERO_CHECK.dir

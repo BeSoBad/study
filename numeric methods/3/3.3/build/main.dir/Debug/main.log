@@ -2,48 +2,13 @@
 C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\include/matrix.cpp(26,9): warning C4101: t: неиспользованная локальная переменная
 C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\include/matrix.cpp(61,22): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(16,33): warning C4305: инициализация: усечение из "double" в "float"
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(37,60): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(37,81): warning C4244: -=: преобразование "float" в "int", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(38,14): warning C4244: аргумент: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(39,14): warning C4244: аргумент: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(41,14): warning C4244: аргумент: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(42,14): warning C4244: аргумент: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(49,60): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(49,81): warning C4244: -=: преобразование "float" в "int", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(50,27): warning C4244: аргумент: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(51,42): warning C4244: аргумент: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(53,27): warning C4244: аргумент: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(54,42): warning C4244: аргумент: преобразование "int" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(63,12): warning C4244: аргумент: преобразование "double" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(70,38): warning C4244: аргумент: преобразование "_Ty" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(70,38): warning C4244:         with
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(70,38): warning C4244:         [
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(70,38): warning C4244:             _Ty=double
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(70,38): warning C4244:         ]
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(70,20): warning C4244: аргумент: преобразование "_Ty" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(70,20): warning C4244:         with
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(70,20): warning C4244:         [
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(70,20): warning C4244:             _Ty=double
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(70,20): warning C4244:         ]
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(71,42): warning C4244: аргумент: преобразование "_Ty" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(71,42): warning C4244:         with
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(71,42): warning C4244:         [
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(71,42): warning C4244:             _Ty=double
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(71,42): warning C4244:         ]
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(71,20): warning C4244: аргумент: преобразование "_Ty" в "GLfloat", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(71,20): warning C4244:         with
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(71,20): warning C4244:         [
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(71,20): warning C4244:             _Ty=double
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(71,20): warning C4244:         ]
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(79,15): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(94,17): warning C4305: аргумент: усечение из "double" в "float"
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(131,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(132,22): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(132,15): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(142,13): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(149,20): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(149,13): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(149,37): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(149,30): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(150,18): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(130,18): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(131,22): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(131,15): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(141,13): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(148,20): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(148,13): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(148,37): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(148,30): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\main.cpp(149,18): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
   main.vcxproj -> C:\Users\Артём\Documents\GitHub\study\numeric methods\3\3.3\build\Debug\main.exe

@@ -64,7 +64,7 @@ int get_QR(Matrix &A, Matrix& Q1, Matrix& R) {
     Matrix Q(size, size, 1);
     Matrix A_i = A;
     for (int i = 0; i < size - 1; i++) {
-        Vector col = get_column(A, i);
+        Vector col = get_column(A_i, i);
         Matrix H = householder(col, size, i);
         Matrix tmp1 = Q*H, tmp2 = H*A_i;
         Q = tmp1;
@@ -75,28 +75,69 @@ int get_QR(Matrix &A, Matrix& Q1, Matrix& R) {
 	return 0;
 }
 
+double not_complex = 1e6 + 23;
 
+struct root {
+	double real, image;
+	bool complex;
+	root() {
+		real = 0;
+		image = not_complex;
+		complex = false;
+	}
+};
 
-pair<double, double> get_roots(Matrix& A, int i) {
+struct roots {
+	root first, second;
+	bool complex_pair;
+	roots() {
+		complex_pair = false;
+	}
+	void make_complex() {
+		complex_pair = true;
+		second.complex = true;
+	}
+	void make_real() {
+		complex_pair = false;
+		first.complex = false;
+		second.complex = false;
+	}
+};
+
+roots get_roots(Matrix& A, int i) {
     int size = A.size();
     double a11 = A[i][i];
     double a12 = (i + 1 < size) ? A[i][i + 1]:0;
     double a21 = (i + 1 < size) ? A[i + 1][i]:0;
     double a22 = (i + 1 < size) ? A[i + 1][i + 1]:0;
     double a = 1, b = -a11 - a22, c = a11 * a22 - a12 * a21;
-    double x1, x2;
-    if ((b*b - 4*a*c) >= 0) {
-        x1 = (-b + sqrt(b*b - 4*a*c))/(2 * a);
-        x2 = (-b - sqrt(b*b - 4*a*c))/(2 * a);
+	roots rs;
+	double D = b * b - 4 * a * c;
+	root r1, r2;
+    if (D >= 0) {
+        r1.real = (-b + sqrt(D))/(2 * a);
+		r2.real = (-b - sqrt(D))/(2 * a);
     }
-    return make_pair(x1, x2);
+	else {
+		r1.real = -b / (2.0 * a);
+		r1.image = sqrt(-D) / (2.0 * a);
+		r2.real = -b / (2.0 * a);
+		r2.image = -sqrt(-D) / (2.0 * a);
+		rs.make_complex();
+	}
+	rs.first = r1;
+	rs.second = r2;
+	return rs;
 }
 
 bool finish_iter_for_complex(Matrix& A, double eps, int i) {
     Matrix Q, R;
     get_QR(A, Q, R);
     Matrix A_n = R*Q;
-    pair<double, double> l1 = get_roots(A, i), l2 = get_roots(A_n, i);
+    roots l1 = get_roots(A, i), l2 = get_roots(A_n, i);
+	if (!l1.complex_pair && !l2.complex_pair) {
+
+	}
     if (abs(l1.first - l2.first) <= eps && abs(l1.second - l2.second) <= eps) {
         return true;
     }
@@ -114,6 +155,11 @@ tuple <pair <double, double>, bool, Matrix> get_eigenvalues(Matrix& A, double ep
         A_i = R*Q;
 		Vector subdiag1 = get_sub_diagonal(A_i, i + 1, 0);
 		Vector subdiag2 = get_sub_diagonal(A_i, i + 2, 0);
+		double norm1 = subdiag1.norm();
+		double norm2 = subdiag2.norm();
+		bool finish_iter = finish_iter_for_complex(A_i, eps, i);
+		if (finish_iter)
+			cout << "Ftrue" << endl;
 		if (subdiag1.norm() <= eps) {
 			auto a = make_pair(A_i[i][i], 0);
 			res = make_tuple(a, false, A_i);
@@ -149,22 +195,26 @@ tuple<vector <double>, int> QR(Matrix& A, double eps) {
 }
 
 int main() {
+	double eps = 0.01;
+	cout << "Enter epsilon: ";
+	cin >> eps;
+	auto f = freopen("log.txt", "w", stdout);
 	string path = "matrix.txt";
 	Matrix A;
 	A.readMatrix(path);
+	cout << "input matrix:\n";
 	A.show();
 	int n = A.size();
-	Vector b;
+	Vector b(A.size());
 	b.readVector("vector.txt");
+	cout << "input vector:\n";
 	b.show();
-	
-	double eps = 0.01;
-	//cin >> eps;
+
 	
 	tuple<vector <double>, int> res = QR(A, eps);
     
 	vector <double> eval = get<0>(res);
-
+	cout << "eigenvalues:\n";
 	for (int i = 0; i < eval.size(); i++) {
 		cout << eval[i] << endl;
 	}

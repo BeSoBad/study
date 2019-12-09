@@ -14,8 +14,10 @@ Matrix operator*(Matrix& A, Matrix& B) {
 	Matrix C(n, n);
 	for(int i = 0; i < n; i++)
 		for(int j = 0; j < n; j++)
-			for(int k = 0; k < n; k++)
-				C[i][j] += A[i][k] * B[k][j];
+			for (int k = 0; k < n; k++) {
+				double p = A[i][k] * B[k][j];
+				C[i][j] += p;
+			}
 	return C;
 }
 

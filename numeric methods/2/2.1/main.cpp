@@ -4,6 +4,8 @@
 #include <cmath>
 #include <math.h>
 
+//методы простой итерации и Ньютона решения нелинейных уравнений
+
 const double E = 2.71828182845904523536;
 
 
@@ -55,10 +57,14 @@ std::pair<double, int> method_newton(double eps, double a, double b) {
 
 
 int main() {
-	double eps = 0.01;
-	auto res = method_newton(eps, 0, 0.5);
-	std::cout << res.first << " " << res.second << std::endl;
-	res = method_iterations(eps, 0, 0.5);
-	std::cout << res.first << " " << res.second << std::endl;
+	auto f = freopen("log.txt", "w", stdout);
+	double eps = 0.001, a = 0, b = 0.5;
+	auto res = method_newton(eps, a, b);
+	printf("interval: (%f, %f)\n", a, b);
+	printf("newton method:\n");
+	printf("x = %f, count iteraions = %d\n", res.first, res.second);
+	res = method_iterations(eps, a, b);
+	printf("iteration method:\n");
+	printf("x = %f, count iteraions = %d", res.first, res.second);
 	return 0;
 }

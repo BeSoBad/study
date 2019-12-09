@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(NM_LAB_1)
+project(NM_LAB_1.2)
 include_directories("include/")
 
 set(CMAKE_BUILD_TYPE Debug)

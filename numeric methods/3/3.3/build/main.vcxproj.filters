@@ -13,4 +13,7 @@
       <UniqueIdentifier>{BE28868D-EEE9-34AE-8000-6EA63C1E687B}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="dots.txt" />
+  </ItemGroup>
 </Project>

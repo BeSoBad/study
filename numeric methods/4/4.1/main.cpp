@@ -6,12 +6,15 @@
 #include <vector>
 #include <tuple>
 #include <map>
+#include <cstdio>
 #include "include/matrix.cpp"
 #include "include/vector.cpp"
 #include "include/LU.cpp"
 //#include <libconfig.h++>
 
 #define storage map <string, map <string, vector <double>>>
+
+//методы Ёйлера, –унге- утты и јдамса 4-го пор€дка 
 
 using namespace std;
 
@@ -253,6 +256,7 @@ void input(string message, double& d) {
 
 int main(int argc, char** argv) {
 	
+	auto f = freopen("log.txt", "w", stdout);
 	double a, b, st, y0, y_der;
 	/*input("Enter a: ", a);
 	input("Enter b: ", b);
@@ -266,25 +270,35 @@ int main(int argc, char** argv) {
 	y0 = 2;
 	y_der = 0;
 
-
+	printf("Interval: [%f, %f]\n", a, b);
+	printf("h=%f, y0=%f, y_der=%f\n", st, y0, y_der);
 	vector <double> steps = {st, st / 2};
 
 	for (int h = 0; h < steps.size(); h++) {
+		printf("Euler method:\n");
 		vector <double> euler_x, euler_y;
 		auto euler_res = Euler_method(a, b, steps[h], y0, y_der);
 		euler_x = get<0>(euler_res);
 		euler_y = get<1>(euler_res);
+		for (int i = 0; i < euler_x.size(); i++)
+			printf("x[%d]=%f\ty[%d]=%f\n", i, euler_x[i], i, euler_y[i]);
 
+		printf("Runge-Kutta method:\n");
 		vector <double> runge_x, runge_y, runge_z;
 		auto runge_res = Runge_Kutta_method(a, b, steps[h], y0, y_der);
 		runge_x = get<0>(runge_res);
 		runge_y = get<1>(runge_res);
 		runge_z = get<2>(runge_res);
+		for (int i = 0; i < runge_x.size(); i++)
+			printf("x[%d]=%f\ty[%d]=%f\n", i, runge_x[i], i, runge_y[i]);
 
+		printf("Adams method:\n");
 		vector <double> adams_x, adams_y;
 		auto adams_res = Adams_method(runge_x, runge_y, runge_z, steps[h]);
 		adams_x = get<0>(adams_res);
 		adams_y = get<1>(adams_res);
+		for (int i = 0; i < adams_x.size(); i++)
+			printf("x[%d]=%f\ty[%d]=%f\n", i, adams_x[i], i, adams_y[i]);
 
 		storage stor;
 		stor["Euler"]["x"] = euler_x;
@@ -295,8 +309,20 @@ int main(int argc, char** argv) {
 		stor["Adams"]["y"] = adams_y;
 		save_res.push_back(stor);
 	}
-	auto err = Runge_Romberg_method(save_res, steps);
-
+	auto errs = Runge_Romberg_method(save_res, steps);
+	printf("errors:\n");
+	printf("Euler:\n");
+	for (int i = 0; i < errs["Euler"].size(); i++) {
+		printf("[%d] %f\n", i, errs["Euler"][i]);
+	}
+	printf("Runge:\n");
+	for (int i = 0; i < errs["Runge"].size(); i++) {
+		printf("[%d] %f\n", i, errs["Runge"][i]);
+	}
+	printf("Adams:\n");
+	for (int i = 0; i < errs["Adams"].size(); i++) {
+		printf("[%d] %f\n", i, errs["Adams"][i]);
+	}
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);

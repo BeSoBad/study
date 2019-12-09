@@ -9,197 +9,23 @@
 #include "include/vector.cpp"
 #include "include/LU.cpp"
 
-using namespace std;
-
-const int X_COORD = 50;// X - ����������� ] ������
-const int Y_COORD = 50;// Y - ����������� ] ���� �������
-const float ITERATIONS = 0.00005;// ���������� ������� (��� ������ ��� �����)
-
-int x_off = X_COORD / 2;// ������
-int y_off = Y_COORD / 2;// ��� ���������
-
-//�������� �������
-#define expr x
-#define expr2 x*x
-
-
-void drawgrid(float SERIF_OFFSET, float SERIF_DISTANCE) {
-	glBegin(GL_LINES);
-	//������ �����
-	glColor3f(0.0, 0.0, 0.0);
-
-	//������ ������������ ���
-	//�����������
-	glVertex2f(0.0, Y_COORD / 2);
-	glVertex2f(X_COORD, Y_COORD / 2);
-	//������� �� �����������
-	int p = X_COORD / 2;
-	for (int i = X_COORD / 2; i < X_COORD; i += SERIF_DISTANCE, p -= SERIF_DISTANCE) {
-		glVertex2f(i, Y_COORD / 2);
-		glVertex2f(i, Y_COORD / 2 + SERIF_OFFSET);
-
-		glVertex2f(p, Y_COORD / 2);
-		glVertex2f(p, Y_COORD / 2 + SERIF_OFFSET);
-	}
-	//���������
-	int t = Y_COORD / 2;
-	glVertex2f(X_COORD / 2, Y_COORD);
-	glVertex2f(X_COORD / 2, 0.0);
-	//������� �� ���������
-	for (int i = Y_COORD / 2; i < Y_COORD; i += SERIF_DISTANCE, t -= SERIF_DISTANCE) {
-		glVertex2f(X_COORD / 2, i);
-		glVertex2f(Y_COORD / 2 + SERIF_OFFSET, i);
-
-		glVertex2f(X_COORD / 2, t);
-		glVertex2f(Y_COORD / 2 + SERIF_OFFSET, t);
-	}
-	glEnd();
-}
-
-void drawfunc(vector <double>& x, vector <double>& y, double color) {
-	//������ ������
-	glBegin(GL_LINES);
-	float j = 0;
-	glColor3f(color, 0.0, 0.0);
-	//for (float x = -X_COORD * 2; x < X_COORD * 2; x += 0.5) {
-	//	//��������������� ����������
-	//	j = expr;
-	//	glVertex2d(x_off + x, y_off + j);//�� ������� x � y!! ��� ������ �� ����!
-	//}
-	for (int i = 0; i < x.size() - 1; i++) {
-		glVertex2f(x_off + x[i] * 5, y_off + y[i] * 5);
-		glVertex2f(x_off + x[i + 1] * 5, y_off + y[i + 1] * 5);
-	}
-	glEnd();
-}
-
-
-void funcinfo(int val1, int val2) {
-	//���������� � �������
-	for (float x = val1; x <= val2; x++) {
-		float j = expr;
-		cout << x << " : " << j << endl;
-	}
-}
-
-vector <double> points_g, F_g;
+////Кубический сплайн для функции, 
+//заданной в узлах интерполяции, предполагая, 
+//что сплайн имеет нулевую кривизну
+////x0=-0.5
+vector <double> points_g, F_g, inp_points, inp_values;
 double color_g;
 
-void display() {
-	glClear(GL_COLOR_BUFFER_BIT);
 
-	cout << "Osnovnie toshki po vashemu grafiku: \n";
-	//vector <double>& points, vector <double>& F, double color
-
-	drawgrid(0.3, 5);
-	drawfunc(points_g, F_g, color_g);
-	glutSwapBuffers();
-
-	glFlush();
-}
-
-tuple <vector<double>, vector<double>> read_data(string path, int count) {
-	ifstream f(path);
-	if (!(f.is_open()))
-		cout << "file not found" << endl;
-	vector <double> points(count), values(count);
-	for (int i = 0; i < count; i++)
-		f >> points[i];
-	for (int i = 0; i < count; i++)
-		f >> values[i];
-	f.close();
-	return make_tuple(points, values);
-}
-
-double f(double a, double b, double c, double d, double x) {
-	return a + b * x + c * x * x + d * x * x * x;
-}
-
-vector <double> get_a(vector <double>& f) {
-	vector <double> a(1);
-	for (int i = 0; i < f.size() - 1; i++)
-		a.push_back(f[i]);
-	return a;
-}
-
-vector <double> get_b(vector <double>& f, vector <double>& h, vector <double>& c) {
-	vector <double> b(1);
-	int n = f.size() - 1;
-	for (int i = 1; i < n; i++) {
-		double p1 = (f[i] - f[i - 1]);
-		double p2 = h[i];
-		double p3 = double(1) / 3;
-		double p4 = h[i] * (c[i + 1] + 2 * c[i]);
-		b.push_back(p1 / p2 - p3 * p4);
-		//b.push_back((f[i] - f[i - 1]) / h[i] - double(1) / 3 * h[i] * (c[i + 1] + 2 * c[i]));
+template<typename T>
+std::ostream& operator<<(std::ostream& s, std::vector<T> t) {
+	s << "[";
+	for (std::size_t i = 0; i < t.size(); i++) {
+		s << t[i] << (i == t.size() - 1 ? "" : ", ");
 	}
-	b.push_back((f[n] - f[n - 1]) / h[n] - double(2) / 3 * h[n] * c[n]);
-	return b;
+	return s << "]" << std::endl;
 }
 
-vector <double> run_method(int n, vector <double>& a, vector <double>& c, vector <double>& b, vector <double>& f) {
-	vector <double> x(n);
-	double m;
-	for (int i = 1; i < n; i++) {
-		m = a[i] / c[i - 1];
-		c[i] = c[i] - m * b[i - 1];
-		f[i] = f[i] - m * f[i - 1];
-	}
-
-	x[n - 1] = f[n - 1] / c[n - 1];
-
-	for (int i = n - 2; i >= 0; i--)
-		x[i] = (f[i] - b[i] * x[i + 1]) / c[i];
-	return x;
-}
-
-vector <double> get_c(vector <double>& f, vector <double>& h) {
-	int n = f.size();
-	vector <double> a(1), b, c, d;
-	for (int i = 3; i < n; i++)
-		a.push_back(h[i - 1]);
-	for (int i = 2; i < n; i++)
-		b.push_back(2 * (h[i - 1] + h[i]));
-	for (int i = 2; i < n - 1; i++)
-		c.push_back(h[i]);
-	c.push_back(0);
-	for (int i = 2; i < n; i++)
-		d.push_back(3 * ((f[i] - f[i - 1]) / h[i] - ((f[i - 1] - f[i - 2]) / h[i - 1])));
-	vector <double> x = run_method(a.size(), a, c, b, d);
-	vector <double> res(2);
-	for (int i = 0; i < x.size(); i++)
-		res.push_back(x[i]);
-	return res;
-}
-
-vector <double> get_d(vector <double>& h, vector <double>& c) {
-	vector <double> d(1);
-	int n = c.size() - 1;
-	for (int i = 1; i < n; i++)
-		d.push_back((c[i + 1] - c[i]) / (3 * h[i]));
-	d.push_back(-c[n] / (3 * h[n]));
-	return d;
-}
-
-int find_interval(vector <double>& points, double x) {
-	for (int i = 0; i < points.size(); i++)
-		if (points[i] <= x && points[i + 1] >= x)
-			return i;
-}
-
-tuple <double, vector <double>, vector <double>, vector <double>, vector <double>> 
-spline_interpolation(vector <double>& points, vector <double>& values, double x) {
-	vector <double> h(1);
-	for (int i = 1; i < points.size(); i++)
-		h.push_back(points[i] - points[i - 1]);
-	vector <double> c = get_c(values, h);
-	vector <double> a = get_a(values);
-	vector <double> b = get_b(values, h, c);
-	vector <double> d = get_d(h, c);
-	int i = find_interval(points, x);
-	double res = f(a[i + 1], b[i + 1], c[i + 1], d[i + 1], x - points[i]);
-	return make_tuple(res, a, b, c, d);
-}
 
 
 template<typename T>
@@ -223,39 +49,168 @@ std::vector<double> linspace(T start_in, T end_in, int num_in) {
 	return linspaced;
 }
 
+void write_dots(string path) {
+	ofstream f;
+	f.open(path);
+	f << points_g.size() << endl << "g" << endl;
+	f << "cubic spline\nplot" << endl;
+	for (int i = 0; i < points_g.size(); i++) {
+		f << points_g[i] << " " << F_g[i] << endl;
+	}
+	f << inp_points.size() << endl << "r" << endl;
+	f << "input dots\nscatter" << endl;
+	for (int i = 0; i < inp_points.size(); i++) {
+		f << inp_points[i] << " " << inp_values[i] << endl;
+	}
+	f.close();
+}
+
+#include <cstdlib>
+#include <cmath>
+#include <limits>
+
+class cubic_spline
+{
+private:
+	struct spline_tuple
+	{
+		double a, b, c, d, x;
+	};
+
+	spline_tuple* splines;
+	std::size_t n; 
+
+	void free_mem(); 
+
+public:
+	cubic_spline();
+	~cubic_spline();
+	void build_spline(vector <double> x, vector <double> y, std::size_t n);
+	double f(double x) const;
+};
+
+cubic_spline::cubic_spline() : splines(NULL)
+{
+
+}
+
+cubic_spline::~cubic_spline()
+{
+	free_mem();
+}
+
+void cubic_spline::build_spline(vector <double> x, vector <double> y, std::size_t n)
+{
+	free_mem();
+
+	this->n = n;
+
+	splines = new spline_tuple[n];
+	for (std::size_t i = 0; i < n; ++i)
+	{
+		splines[i].x = x[i];
+		splines[i].a = y[i];
+	}
+	splines[0].c = 0.;
+
+	double* alpha = new double[n - 1];
+	double* beta = new double[n - 1];
+	double A, B, C, F, h_i, h_i1, z;
+	alpha[0] = beta[0] = 0.;
+	for (std::size_t i = 1; i < n - 1; ++i)
+	{
+		h_i = x[i] - x[i - 1], h_i1 = x[i + 1] - x[i];
+		A = h_i;
+		C = 2. * (h_i + h_i1);
+		B = h_i1;
+		F = 6. * ((y[i + 1] - y[i]) / h_i1 - (y[i] - y[i - 1]) / h_i);
+		z = (A * alpha[i - 1] + C);
+		alpha[i] = -B / z;
+		beta[i] = (F - A * beta[i - 1]) / z;
+	}
+
+	splines[n - 1].c = (F - A * beta[n - 2]) / (C + A * alpha[n - 2]);
+
+	for (std::size_t i = n - 2; i > 0; --i)
+		splines[i].c = alpha[i] * splines[i + 1].c + beta[i];
+
+	delete[] beta;
+	delete[] alpha;
+
+	for (std::size_t i = n - 1; i > 0; --i)
+	{
+		double h_i = x[i] - x[i - 1];
+		splines[i].d = (splines[i].c - splines[i - 1].c) / h_i;
+		splines[i].b = h_i * (2. * splines[i].c + splines[i - 1].c) / 6. + (y[i] - y[i - 1]) / h_i;
+	}
+}
+
+double cubic_spline::f(double x) const
+{
+	if (!splines)
+		return std::numeric_limits<double>::quiet_NaN();
+
+	spline_tuple* s;
+	if (x <= splines[0].x) 
+		s = splines + 1;
+	else if (x >= splines[n - 1].x) 
+		s = splines + n - 1;
+	else
+	{
+		std::size_t i = 0, j = n - 1;
+		while (i + 1 < j)
+		{
+			std::size_t k = i + (j - i) / 2;
+			if (x <= splines[k].x)
+				j = k;
+			else
+				i = k;
+		}
+		s = splines + j;
+	}
+
+	double dx = (x - s->x);
+	return s->a + (s->b + (s->c / 2. + s->d * dx / 6.) * dx) * dx; 
+}
+
+tuple <vector<double>, vector<double>> read_data(string path, int count) {
+	ifstream f(path);
+	if (!(f.is_open()))
+		cout << "file not found" << endl;
+	vector <double> points(count), values(count);
+	for (int i = 0; i < count; i++)
+		f >> points[i];
+	for (int i = 0; i < count; i++)
+		f >> values[i];
+	f.close();
+	return make_tuple(points, values);
+}
+
+void cubic_spline::free_mem()
+{
+	delete[] splines;
+	splines = NULL;
+}
 
 int main(int argc, char** argv) {
-	
+	auto ff = freopen("log.txt", "w", stdout);
 	auto data = read_data("input.txt", 5);
 	vector <double> points = get<0>(data), values = get<1>(data);
-	double x = 3;
-//	cin >> x;
-
-	auto res = spline_interpolation(points, values, x);
-
-	double value = get<0>(res);
-	vector <double> a = get<1>(res);
-	vector <double> b = get<2>(res);
-	vector <double> c = get<3>(res);
-	vector <double> d = get<4>(res);
-
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowSize(800, 600);
-	glutInitWindowPosition(500, 200);
-	glutCreateWindow("GLUT_TESTING_APP");
-
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	//////������������ ���������
-	glOrtho(0.0, X_COORD, 0.0, Y_COORD, -1.0, 1.0);
+	double x = -0.5;
+	//cin >> x;
   
+	cubic_spline c_p;
+
+	c_p.build_spline(points, values, points.size());
+
+	double res = c_p.f(0.5);
+	cout << c_p.f(0.5) << endl;
+
 	for (int i = 0; i < points.size() - 1; i++) {
 		vector <double> x1 = linspace(points[i], points[i + 1], 10);
 		vector <double> y1;
 		for (int j = 0; j < x1.size(); j++) {
-			double r = f(a[i + 1], b[i + 1], c[i + 1], d[i + 1], x1[j] - points[i]);
+			double r = c_p.f(x1[j]);
 			y1.push_back(r);
 		}
 		for (int j = 0; j < x1.size(); j++) {
@@ -264,8 +219,11 @@ int main(int argc, char** argv) {
 		}
 	}
 
+	inp_points = points;
+	inp_values = values;
 	color_g = 1.0;
 
-	glutDisplayFunc(display);
-	glutMainLoop();
+	write_dots("dots.txt");
+
+	system("python plot.py");
 }

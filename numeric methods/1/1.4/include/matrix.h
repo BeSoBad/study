@@ -12,7 +12,7 @@ public:
 	std::vector <std::vector <double>> x;
 	int n, m;
 	std::vector <double>& operator[](int i);
-	Matrix(int nn = 0, int mm = 0);
+	Matrix(int nn = 0, int mm = 0, int p = 0);
 	void readMatrix(std::string &path);
 	void show();
 	int size();

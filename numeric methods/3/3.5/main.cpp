@@ -6,6 +6,8 @@
 #include <string>
 #include <tuple>
 
+//Вычислить определенный интеграл   , методами прямоугольников, трапеций, Симпсона с шагами
+
 #define CalcResult tuple <double, double, double, double>
 
 using namespace std;
@@ -36,7 +38,7 @@ vector <double> get_values(vector <double> points) {
 
 vector <double> get_points(double x0, double x, double step) {
 	vector <double> points;
-	for (int i = x0; i < x + step; i += step)
+	for (double i = x0; i < x + step; i += step)
 		points.push_back(i);
 	return points;
 }
@@ -51,7 +53,7 @@ double rectangle_method(vector <double> x, double h) {
 double trapeze_method(vector <double> y, double h) {
 	int n = y.size() - 1;
 	double sum = 0;
-	for (int i = 1; i < n - 1; i++)
+	for (int i = 1; i < n; i++)
 		sum += y[i];
 	return h * (y[0] / 2 + sum + y[n] / 2);
 }
@@ -75,18 +77,33 @@ tuple <vector<double>, vector<double>, vector<double>> runge_method(vector <Calc
 	return make_tuple(err_rec, err_trap, err_sim);
 }
 
+double RR_method(double coef, double res1, double res2) {
+	return abs(res1 - res2) / coef;
+}
+
 int main() {
-	auto data = read_data("input.txt", 5);
-	vector <double> points = get<0>(data), values = get<1>(data);
+	cin.tie(0);
+	auto f = freopen("log.txt", "w", stdout);
 	double x0, x;
 	double steps[2];
-	cin >> x0 >> x >> steps[0] >> steps[1];
+	cin >> x0;
+	cin >> x;
+	cin >> steps[0];
+	cin >> steps[1];
+	double k = steps[0] / steps[1];
+	double exact_solve = 0.062641;
 	for (auto h: steps) {
+		cout << "step: " << h << endl;
 		vector <double> points = get_points(x0, x, h);
 		vector <double> values = get_values(points);
 		double rec = rectangle_method(points, h);
 		double trap = trapeze_method(values, h);
 		double sim = simpson_method(values, h);
-		cout << rec << " " << trap << " " << sim << endl;	
+		cout << "rectange answer: " << rec << endl;
+		cout << "error: " << RR_method(k * k - 1, rec, exact_solve) << endl;
+		cout << "trapeze answer: " << trap << endl;
+		cout << "error: " << RR_method(k * k - 1, trap, exact_solve) << endl;
+		cout << "simpson answer: " << sim << endl;
+		cout << "error: " << RR_method(k * k * k - 1, sim, exact_solve) << endl;
 	}
 }

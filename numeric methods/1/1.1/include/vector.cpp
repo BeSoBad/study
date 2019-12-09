@@ -45,7 +45,6 @@ void Vector::readVector(std::string &&path) {
 				tmp.push(temp);
 				count++;
 		}
-		tmp.n--;
 		this->x = tmp.x;
 		this->n = tmp.n;
 	}

@@ -5,6 +5,8 @@
 #include <math.h>
 #include <string>
 
+//Используя таблицу значений   функции  , вычисленных в точках     построить интерполяционные многочлены Лагранжа и Ньютона
+
 using namespace std;
 
 vector <vector<double>> read_points(string path) {
@@ -71,24 +73,35 @@ double newton(vector <double> points, double x) {
 	return res;
 }
 
+template<typename T>
+std::ostream& operator<<(std::ostream& s, std::vector<T> t) {
+	s << "[";
+	for (std::size_t i = 0; i < t.size(); i++) {
+		s << t[i] << (i == t.size() - 1 ? "" : ", ");
+	}
+	return s << "]" << std::endl;
+}
+
 int main() {
-	vector <vector <double>> points = read_points("points.txt.txt");
+	auto ff = freopen("log.txt", "w", stdout);
+	vector <vector <double>> points = read_points("points.txt");
 	double x;
 	cin >> x;
 	vector <double> lagrange_res, newton_res;
 	for (int i = 0; i < points.size(); i++) {
+		cout << "point: " << points[i];
 		double value = f(x);
 		double lagrange_value = lagrange(points[i], x);
 		double error = abs(value - lagrange_value);
-		cout << "value - " << value << endl;
-		cout << "lagrange value - " << lagrange_value << std::endl;
-		cout << "error - " << error << endl;
+		cout << "value:  " << value << endl;
+		cout << "lagrange value:  " << lagrange_value << std::endl;
+		cout << "error:  " << error << endl;
 		lagrange_res.push_back(lagrange_value);
 
 		double newton_value = newton(points[i], x);
 		error = abs(value - newton_value);
-		cout << "newton value - " << newton_value << std::endl;
-		cout << "error - " << error << endl << endl;
+		cout << "newton value:  " << newton_value << std::endl;
+		cout << "error:  " << error << endl << endl;
 		newton_res.push_back(newton_value);
 	}
 }

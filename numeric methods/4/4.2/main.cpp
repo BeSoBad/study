@@ -8,8 +8,10 @@
 #include <map>
 #include "include/matrix.cpp"
 #include "include/vector.cpp"
-//#include <libconfig.h++>
+#include <stdio.h>
 
+//#include <libconfig.h++>
+//еализовать метод стрельбы и конечно-разностный метод решения краевой задачи для ОДУ
 #define storage map <string, map <string, vector <double>>>
 
 using namespace std;
@@ -92,7 +94,6 @@ vector <storage> save_res;
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	cout << "Osnovnie toshki po vashemu grafiku: \n";
 	//vector <double>& points, vector <double>& F, double color
 
 	drawgrid(0.3, 5);
@@ -292,7 +293,7 @@ void input(string message, double& d) {
 }
 
 int main(int argc, char** argv) {
-	
+	auto f = freopen("log.txt", "w", stdout);
 	double a, b, alpha, beta, delta, gamma, st, y0, y1, eps;
 	/*input("Enter a: ", a);
 	input("Enter b: ", b);
@@ -312,19 +313,27 @@ int main(int argc, char** argv) {
 	y0 = 2;
 	eps = 1e-5;
 
-
+	printf("Interval: [%f, %f]\n", a, b);
+	printf("alpha=%f, beta=%f, delta=%f, gamma=%f, y0=%f, y1=%f\n", alpha, beta, delta, gamma, y0, y1);
 	vector <double> steps = {st, st / 2};
 
 	for (int h = 0; h < steps.size(); h++) {
+		printf("step: %f\n", steps[h]);
+		printf("shooting method:\n");
 		vector <double> s_x, s_y;
 		auto s_res = shooting_method(a, b, alpha, beta, delta, gamma, y0, y1, steps[h], eps);
 		s_x = get<0>(s_res);
 		s_y = get<1>(s_res);
+		for (int i = 0; i < s_x.size(); i++)
+			printf("x[%d]=%f\ty[%d]=%f\n", i, s_x[i], i, s_y[i]);
 
+		printf("finite difference method:\n");
 		vector <double> fd_x, fd_y, fd_z;
 		auto fd_res = finite_difference_method(a, b, alpha, beta, delta, gamma, y0, y1, steps[h]);
 		fd_x = get<0>(fd_res);
 		fd_y = get<1>(fd_res);
+		for (int i = 0; i < s_x.size(); i++)
+			printf("x[%d]=%f\ty[%d]=%f\n", i, fd_x[i], i, fd_y[i]);
 
 		storage stor;
 		stor["Shooting"]["x"] = s_x;
@@ -343,8 +352,17 @@ int main(int argc, char** argv) {
 		save_res.push_back(stor);
 	}
 
-	auto err = Runge_Romberg_method(save_res, steps);
+	auto errs = Runge_Romberg_method(save_res, steps);
 
+	printf("errors:\n");
+	printf("shooting:\n");
+	for (int i = 0; i < errs["Shooting"].size(); i++) {
+		printf("[%d] %f\n", i, errs["Shooting"][i]);
+	}
+	printf("fd:\n");
+	for (int i = 0; i < errs["FD"].size(); i++) {
+		printf("[%d] %f\n", i, errs["FD"][i]);
+	}
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
