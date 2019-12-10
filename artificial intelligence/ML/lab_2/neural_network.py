@@ -204,7 +204,7 @@ if __name__ == '__main__':
                       random_state = 1)
 
     a = time.time()
-    nn.fit(X_train, y_train, print_progress = False)#        обучаем
+    nn.fit(X_train, y_train, print_progress = False)
     b = time.time()
     print("Time:", b - a)
 
